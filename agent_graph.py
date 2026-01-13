@@ -231,7 +231,7 @@ def build_travel_agent_graph():
     graph.add_edge("get_activity_recommendations", "create_final_plan")
     
     # Connect final planning to END
-    graph.add_edge("create_final_plan", END)
+    graph.add_edge("create_final_plan", "get_next_user_message")
     
     # Compile the graph
     memory = MemorySaver()

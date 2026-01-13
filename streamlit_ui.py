@@ -41,11 +41,7 @@ class UserContext(BaseModel):
     hotel_amenities: List[str]
     budget_level: str
 
-@st.cache_resource
-def get_thread_id():
-    return str(uuid.uuid4())
 
-thread_id = get_thread_id()
 
 # Initialize session state for chat history and user context
 if "chat_history" not in st.session_state:
@@ -66,6 +62,7 @@ if "processing_message" not in st.session_state:
     st.session_state.processing_message = None
 
 # Function to handle user input
+# 将user input信息加到chat_history
 def handle_user_message(user_input: str):
     # Add user message to chat history immediately
     timestamp = datetime.now().strftime("%I:%M %p")
@@ -86,7 +83,7 @@ async def invoke_agent_graph(user_input: str):
     """
     config = {
         "configurable": {
-            "thread_id": thread_id
+            "thread_id": st.session_state.thread_id
         }
     }
 
